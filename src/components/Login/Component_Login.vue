@@ -1,6 +1,6 @@
 <template>
     <div class="camada mx-auto">
-        <div class="login mt-5 container-fluid shadow p-3 mb-5 rounded">
+        <div class="login mt-5 cor container-fluid shadow p-3 mb-5 rounded">
             <div class="mb-3 mx-auto">
                 <h1 class="display-6 text-center">Login</h1>
                 <form action="{{route('login')}}" method="POST">
