@@ -75,28 +75,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center" v-for="(relacionamento, id) in listrel" :key="id">
-                            <th scope="row" class="border">{{relacionamento.id}}</th>
-                            <td></td>
-                            <td></td>
+                        <tr class="text-center" v-for="(rel, id) in listrel" :key="id">
+                            <th scope="row" class="border">{{rel.id}}</th>
+                            <td>{{rel.departamento_name}}</td>
+                            <td>{{rel.topico_name}}</td>
                             <td>
-                            <div class="row">
-                                <div class="col">
-                                <select class="form-select" size="1">
-                                    <option value="" selected></option>
-                                </select>
-                                </div> 
-                                <div class="col-auto">
-                                <button data-bs-target="#excluirreluser" class="btn btn-danger" data-bs-toggle="modal">
-                                    <fa :icon="['fa','trash-alt']"/>
-                                </button>
-                                </div>                
-                                <div class="col-auto">
-                                <button data-bs-target="#aditreluser" class="btn btn-primary" data-bs-toggle="modal">
-                                    <fa :icon="['fa','plus-circle']"/>
-                                </button>
-                                </div> 
-                            </div>
+                                <div class="row">
+                                    <div class="col" v>
+                                        <div v-for="(rel_atrib, id) in rel.atribuidos" :key="id">
+                                            {{rel_atrib.name}}
+                                        </div>
+                                    </div> 
+                                    <div class="col-auto">
+                                        <button data-bs-target="#excluirreluser" class="btn btn-danger" data-bs-toggle="modal">
+                                            <fa :icon="['fa','trash-alt']"/>
+                                        </button>
+                                    </div>                
+                                    <div class="col-auto">
+                                        <button data-bs-target="#aditreluser" class="btn btn-primary" data-bs-toggle="modal">
+                                            <fa :icon="['fa','plus-circle']"/>
+                                        </button>
+                                    </div> 
+                                </div>
                             </td>
                             <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editrel">
@@ -391,7 +391,6 @@
             getPost.buscar_dep()
             .then(resposta => {
                 this.listdep = resposta.data
-                console.log(this.listdep)
             })
 
             getPost.buscar_top()
@@ -403,10 +402,12 @@
             .then(resposta => {
                 this.listuser = resposta.data
             })
-
+            
             getPost.buscar_rel()
+            
             .then(resposta => {
                 this.listrel = resposta.data
+                console.log(resposta.data)
             })
         },
 
