@@ -74,6 +74,24 @@ export default{
         })
     },
 
+    editar_rel:(edit_rel) => {
+        return http.post('editar_rel', edit_rel, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response;
+        })
+        .catch(erro => {
+            if(erro.response){
+                return erro.response.data;
+            }
+            
+        })
+    },
+
     // Methods Get
     buscar_users: () => {
         return http.get('buscar_users')

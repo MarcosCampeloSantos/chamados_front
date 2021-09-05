@@ -69,7 +69,7 @@
                     <div class="mb-3">
                         <label class="form-label">Departamento</label>
                         <select class="form-select"  v-model="user.departamento">
-                            <option value="">Selecione um Departamento</option>
+                            <option value="" selected>Selecione um Departamento</option>
                             <option value="1">Ti</option>
                         </select>
                     </div>

@@ -99,7 +99,7 @@
                                 </div>
                             </td>
                             <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editrel">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" :data-bs-target="'#editrel' + rel.id">
                                 Editar
                             </button>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#excluirel">
@@ -110,7 +110,7 @@
                     </tbody>
                 </table>
                 </div>
-                <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#rel">
+                <button type="button" class="btn btn-primary mt-2"  data-bs-toggle="modal" data-bs-target="#rel">
                     Inserir
                 </button>
                 </div>
@@ -172,6 +172,35 @@
         </div>
     </div>
 
+    <!-- Modal Editar Relacionamentos -->
+    <div class="modal fade" v-for="(edit_rel, id) in listrel" :key="id" :id="'editrel' + edit_rel.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Editar Relacionamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="EditRel" id="EditForm">
+                    <div class="mb-3">
+                        <label class="form-label">Departamento</label>
+                        <select class="form-select" v-model="rel_edit.dep" name="rel_dep" size="1" aria-label="size 3 select example">
+                            <option v-for="(dep, id) in listdep" :key="id" :value="dep.id">{{dep.departamentos}}</option>
+                        </select>
+                        <label class="form-label mt-3">Relacionado a</label>
+                        <select class="form-select" v-model="rel_edit.top" name="rel_top" size="1" aria-label="size 3 select example">
+                            <option v-for="(top, id) in listtop" :key="id" :value="top.id">{{top.topicos}}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-primary">Editar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="rel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -208,35 +237,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="modal fade" id="editrel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Editar Relacionamento</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="{{route('editar_rel')}}" method="POST">
-              <div class="mb-3">
-                  <label class="form-label">Departamento</label>
-                  <select class="form-select" name="rel_dep" size="1" aria-label="size 3 select example">
-                      <option value=""></option>
-                  </select>
-                  <input type="hidden" name="id_relacionamento" value="{{$item->id}}">
-                  <label class="form-label mt-3">Relacionado a</label>
-                  <select class="form-select" name="rel_top" size="1" aria-label="size 3 select example">
-                      <option value=""></option>
-                  </select>
-              </div>
-              <div class="mb-3">
-                  <button type="submit" class="btn btn-primary">Editar</button>
-              </div>
-          </form>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="modal fade" id="aditreluser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -365,6 +365,11 @@
         name: 'Component_Painel',
         data(){
             return{
+                rel_edit: {
+                    top: '',
+                    dep: '',
+                    id_rel: ''
+                },
                 listdep:[],
                 listtop:[],
                 listuser:[],
@@ -452,6 +457,13 @@
                         this.buscarTop()
                         // document.location.reload(true)
                     }
+                })
+            },
+
+            EditRel(){
+                getPost.editar_rel()
+                .then(resposta =>{
+                    console.log(resposta)
                 })
             },
 
