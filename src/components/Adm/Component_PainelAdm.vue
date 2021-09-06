@@ -16,7 +16,7 @@
                     <tbody>
                         <tr class="text-center" v-for="(departamentos, id) in listdep" :key="id">
                             <th scope="row" class="border">{{departamentos.id}}</th>
-                            <td >{{departamentos.departamento}}</td>
+                            <td >{{departamentos.departamentos}}</td>
                             <td>
                                 <button data-bs-target="#excluirdep" class="btn btn-danger" data-bs-toggle="modal">
                                     <fa :icon="['fa','trash-alt']"/>
@@ -81,18 +81,18 @@
                             <td>{{rel.topico_name}}</td>
                             <td>
                                 <div class="row">
-                                    <div class="col" v>
+                                    <div class="col">
                                         <div v-for="(rel_atrib, id) in rel.atribuidos" :key="id">
                                             {{rel_atrib.name}}
                                         </div>
                                     </div> 
                                     <div class="col-auto">
-                                        <button data-bs-target="#excluirreluser" class="btn btn-danger" data-bs-toggle="modal">
-                                            <fa :icon="['fa','trash-alt']"/>
+                                        <button :data-bs-target="'#excluirreluser' + rel.id" class="btn btn-danger" data-bs-toggle="modal">
+                                            <fa :icon="['fa','minus-circle']"/>
                                         </button>
                                     </div>                
                                     <div class="col-auto">
-                                        <button data-bs-target="#aditreluser" class="btn btn-primary" data-bs-toggle="modal">
+                                        <button :data-bs-target="'#aditreluser' + rel.id" class="btn btn-primary" data-bs-toggle="modal">
                                             <fa :icon="['fa','plus-circle']"/>
                                         </button>
                                     </div> 
@@ -172,35 +172,7 @@
         </div>
     </div>
 
-    <!-- Modal Editar Relacionamentos -->
-    <div class="modal fade" v-for="(edit_rel, id) in listrel" :key="id" :id="'editrel' + edit_rel.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Editar Relacionamento</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form @submit.prevent="EditRel" id="EditForm">
-                    <div class="mb-3">
-                        <label class="form-label">Departamento</label>
-                        <select class="form-select" v-model="rel_edit.dep" name="rel_dep" size="1" aria-label="size 3 select example">
-                            <option v-for="(dep, id) in listdep" :key="id" :value="dep.id">{{dep.departamentos}}</option>
-                        </select>
-                        <label class="form-label mt-3">Relacionado a</label>
-                        <select class="form-select" v-model="rel_edit.top" name="rel_top" size="1" aria-label="size 3 select example">
-                            <option v-for="(top, id) in listtop" :key="id" :value="top.id">{{top.topicos}}</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-primary">Editar</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- Modal Criar Relacionamentos -->
     <div class="modal fade" id="rel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -217,7 +189,7 @@
                             <label class="form-label">Departamento</label>
                             <select class="form-select" v-model="rel.rel_dep" size="1" aria-label="size 3 select example">
                                 <option value="" selected>Selecione um Departamento</option>
-                                <option v-for="(departamento, id) in listdep" :key="id" :value="departamento.id">{{departamento.departamento}}</option>
+                                <option v-for="(departamento, id) in listdep" :key="id" :value="departamento.id">{{departamento.departamentos}}</option>
                             </select>
                             <label class="form-label mt-3">Relacionado a</label>
                             <select class="form-select" v-model="rel.rel_top" size="1" aria-label="size 3 select example">
@@ -239,7 +211,42 @@
         </div>
     </div>
 
-    <div class="modal fade" id="aditreluser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Modal Editar Relacionamentos -->
+    <div class="modal fade" v-for="(edit_rel, id) in listrel" :key="id" :id="'editrel' + edit_rel.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Editar Relacionamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" v-show="erroalert" role="alert">
+                        <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
+                    </div>
+                    <form @submit.prevent="EditRel">
+                    <div class="mb-3">
+                        <label class="form-label">Departamento</label>
+                        <select class="form-select" v-model="rel_edit.dep" size="1" aria-label="size 3 select example">
+                            <option value="" selected>Selecione um Departamento</option>
+                            <option v-for="(dep, id) in listdep" :key="id" :value="dep.id">{{dep.departamentos}}</option>
+                        </select>
+                        <label class="form-label mt-3">Relacionado a</label>
+                        <select class="form-select" v-model="rel_edit.top" size="1" aria-label="size 3 select example">
+                            <option value="" selected>Selecione um Topico</option>
+                            <option v-for="(top, id) in listtop" :key="id" :value="top.id">{{top.topicos}}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" @click="EnvIdRel(edit_rel.id)" class="btn btn-primary">Editar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Atribuição ao Relacionamento -->
+    <div class="modal fade" v-for="(edit_rel, id) in listrel" :key="id" :id="'aditreluser' + edit_rel.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -247,16 +254,19 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="{{route('adicionar_atributo')}}" method="POST">
+            <div class="alert alert-danger" v-show="erroalert" role="alert">
+                <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
+            </div>
+            <form @submit.prevent="AdicionarAtrib">
               <div class="mb-3">
-                  <input type="hidden" name="id_relacionamento" value="">
-                  <label class="form-label">Atribuir a</label>
-                  <select class="form-select" name="rel_user_edit" size="1" aria-label="size 3 select example">
-                        <option value=""></option>
-                  </select>
+                    <label class="form-label">Atribuir a</label>
+                    <select class="form-select" v-model="adc_atribuido.rel_user_edit" size="1" aria-label="size 3 select example">
+                        <option value="" selected>Selecione um Usuario</option>
+                        <option v-for="(user, id) in listuser" :key="id" :value="user.id">{{user.name}}</option>
+                    </select>
               </div>
               <div class="mb-3">
-                  <button type="submit" class="btn btn-primary">Adicionar</button>
+                  <button type="submit" @click="EnvIdRel(edit_rel.id)" class="btn btn-primary">Adicionar</button>
               </div>
           </form>
           </div>
@@ -365,17 +375,21 @@
         name: 'Component_Painel',
         data(){
             return{
-                rel_edit: {
-                    top: '',
-                    dep: '',
-                    id_rel: ''
-                },
                 listdep:[],
                 listtop:[],
                 listuser:[],
                 listrel:[],
                 erros:[],
                 erroalert: false,
+                adc_atribuido: {
+                    id_rel: '',
+                    rel_user_edit: '',
+                },
+                rel_edit: {
+                    top: '',
+                    dep: '',
+                    id_rel: ''
+                },
                 rel:{
                     rel_dep: '',
                     rel_user: '',
@@ -461,9 +475,30 @@
             },
 
             EditRel(){
-                getPost.editar_rel()
+                getPost.editar_rel(this.rel_edit)
                 .then(resposta =>{
-                    console.log(resposta)
+                    if(resposta.errors){
+                        this.erros = resposta.errors
+                        this.erroalert = true
+                    }else{
+                        this.erroalert = false
+                        this.buscarRel()
+                        // document.location.reload(true)
+                    }
+                })
+            },
+
+            AdicionarAtrib(){
+                getPost.adc_atribuido(this.adc_atribuido)
+                .then(resposta =>{
+                    if(resposta.errors){
+                        this.erros = resposta.errors
+                        this.erroalert = true
+                    }else{
+                        this.erroalert = false
+                        this.buscarRel()
+                        // document.location.reload(true)
+                    }
                 })
             },
 
@@ -487,6 +522,11 @@
                     this.listrel = resposta.data
                 })
             },
+
+            EnvIdRel(a){
+                this.rel_edit.id_rel = a
+                this.adc_atribuido.id_rel = a
+            }
         }
         
     }

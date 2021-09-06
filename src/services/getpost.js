@@ -92,6 +92,24 @@ export default{
         })
     },
 
+    adc_atribuido:(adc_atrib) => {
+        return http.post('adc_atribuido', adc_atrib, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response;
+        })
+        .catch(erro => {
+            if(erro.response){
+                return erro.response.data;
+            }
+            
+        })
+    },
+
     // Methods Get
     buscar_users: () => {
         return http.get('buscar_users')

@@ -70,7 +70,7 @@
                         <label class="form-label">Departamento</label>
                         <select class="form-select"  v-model="user.departamento">
                             <option value="" selected>Selecione um Departamento</option>
-                            <option value="1">Ti</option>
+                            <option v-for="(dep, id) in listdep" :key="id" :value="dep.id">{{dep.departamentos}}</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -106,6 +106,7 @@ export default {
             erroalert: false,
             erros:[],
             listuser:[],
+            listdep: [],
             user:{
                 name:'',
                 nivel: '',
@@ -147,6 +148,12 @@ export default {
         .then(resposta => {
             this.listuser = resposta.data
         })
+
+        getPost.buscar_dep()
+        .then(resposta => {
+            this.listdep = resposta.data
+        })
+                
 
     },
 }
