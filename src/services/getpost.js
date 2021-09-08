@@ -2,7 +2,7 @@ import { http } from './config'
 
 export default{
 
-    // Methods Post
+// Methods Post
     criar_user: (user) => {
         return http.post('criar_user', user,{
             headers: {
@@ -110,7 +110,69 @@ export default{
         })
     },
 
-    // Methods Get
+
+// Methods Post
+    trash_atribuido:(trash_rel_id, trash_id_user) => {
+        return http.delete('trash_atribuido', {
+            params:{
+                'id_rel': trash_rel_id,
+                'id_user': trash_id_user
+            }
+        }, 
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response;
+        })
+        .catch(erro => {
+            if(erro.response){
+                return erro.response.data;
+            }
+            
+        })
+    },
+
+    trash_relacionamento:(trash_rel) => {
+        return http.delete('trash_relacionamento', {params: {'id': trash_rel}}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response;
+        })
+        .catch(erro => {
+            if(erro.response){
+                return erro.response.data;
+            }
+            
+        })
+    },
+
+    trash_departamento:(trash_dep) => {
+        return http.delete('trash_departamento', {params: {'id': trash_dep}}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response;
+        })
+        .catch(erro => {
+            if(erro.response){
+                return erro.response.data;
+            }
+            
+        })
+    },
+
+// Methods Get
     buscar_users: () => {
         return http.get('buscar_users')
         .then(response => {

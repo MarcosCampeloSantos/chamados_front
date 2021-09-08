@@ -1,5 +1,5 @@
 <template>
-    <PainelAdm />
+    <PainelAdm titulo="Painel de Administração"/>
 </template>
 
 <script>

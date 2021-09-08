@@ -1,6 +1,9 @@
 <template>
     <div class="camada cor mx-auto">
         <div class="tamanho_padrao mx-auto mt-5 shadow p-3 mb-5 rounded">
+            <div class="mb-6">
+                <h1 class="display-6 text-center">{{titulo}}</h1>
+            </div>
             <div class="row ">
                 <div class="w-25 mx-auto col">
                 <h5 class="text-center">Departamentos</h5>
@@ -18,7 +21,7 @@
                             <th scope="row" class="border">{{departamentos.id}}</th>
                             <td >{{departamentos.departamentos}}</td>
                             <td>
-                                <button data-bs-target="#excluirdep" class="btn btn-danger" data-bs-toggle="modal">
+                                <button :data-bs-target="'#excluirdep' + departamentos.id" class="btn btn-danger" data-bs-toggle="modal">
                                     <fa :icon="['fa','trash-alt']"/>
                                 </button>
                             </td>
@@ -75,36 +78,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center" v-for="(rel, id) in listrel" :key="id">
+                        <tr class="text-center align-middle" v-for="(rel, id) in listrel" :key="id">
                             <th scope="row" class="border">{{rel.id}}</th>
                             <td>{{rel.departamento_name}}</td>
                             <td>{{rel.topico_name}}</td>
                             <td>
-                                <div class="row">
-                                    <div class="col">
-                                        <div v-for="(rel_atrib, id) in rel.atribuidos" :key="id">
-                                            {{rel_atrib.name}}
-                                        </div>
-                                    </div> 
-                                    <div class="col-auto">
-                                        <button :data-bs-target="'#excluirreluser' + rel.id" class="btn btn-danger" data-bs-toggle="modal">
-                                            <fa :icon="['fa','minus-circle']"/>
-                                        </button>
-                                    </div>                
-                                    <div class="col-auto">
-                                        <button :data-bs-target="'#aditreluser' + rel.id" class="btn btn-primary" data-bs-toggle="modal">
-                                            <fa :icon="['fa','plus-circle']"/>
-                                        </button>
-                                    </div> 
+                                <div v-for="(rel_atrib, id) in rel.atribuidos" :key="id">
+                                    {{rel_atrib.name}}
                                 </div>
                             </td>
                             <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" :data-bs-target="'#editrel' + rel.id">
-                                Editar
-                            </button>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#excluirel">
-                                <fa :icon="['fa','trash-alt']"/>
-                            </button>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <button :data-bs-target="'#excluirreluser' + rel.id" class="btn btn-danger me-1" data-bs-toggle="modal">
+                                            <fa :icon="['fa','minus-circle']"/>
+                                        </button>
+                                        <button :data-bs-target="'#aditreluser' + rel.id" class="btn btn-primary" data-bs-toggle="modal">
+                                            <fa :icon="['fa','plus-circle']"/>
+                                        </button>
+                                    </div>                
+                                    <div class="col-auto">
+                                        <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal" :data-bs-target="'#editrel' + rel.id">
+                                            Editar
+                                        </button>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="'#excluirel' + rel.id">
+                                            <fa :icon="['fa','trash-alt']"/>
+                                        </button>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -188,18 +189,18 @@
                         <div class="mb-3">
                             <label class="form-label">Departamento</label>
                             <select class="form-select" v-model="rel.rel_dep" size="1" aria-label="size 3 select example">
-                                <option value="" selected>Selecione um Departamento</option>
-                                <option v-for="(departamento, id) in listdep" :key="id" :value="departamento.id">{{departamento.departamentos}}</option>
+                                <option class="text-center" value="" selected>Selecione um Departamento</option>
+                                <option class="text-center" v-for="(departamento, id) in listdep" :key="id" :value="departamento.id">{{departamento.departamentos}}</option>
                             </select>
                             <label class="form-label mt-3">Relacionado a</label>
                             <select class="form-select" v-model="rel.rel_top" size="1" aria-label="size 3 select example">
-                                <option value="" selected>Selecione um Topico</option>
-                                <option v-for="(topicos, id) in listtop" :key="id" :value="topicos.id">{{topicos.topicos}}</option>
+                                <option class="text-center" value="" selected>Selecione um Topico</option>
+                                <option class="text-center" v-for="(topicos, id) in listtop" :key="id" :value="topicos.id">{{topicos.topicos}}</option>
                             </select>
                             <label class="form-label mt-3">Relacionado a</label>
                             <select class="form-select" v-model="rel.rel_user" size="1" aria-label="size 3 select example">
-                                <option value="" selected>Selecione um Usuario</option>
-                                <option v-for="(user, id) in listuser" :key="id" :value="user.id">{{user.id}} - {{user.name}}</option>
+                                <option class="text-center" value="" selected>Selecione um Usuario</option>
+                                <option class="text-center" v-for="(user, id) in listuser" :key="id" :value="user.id">{{user.id}} - {{user.name}}</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -227,13 +228,13 @@
                     <div class="mb-3">
                         <label class="form-label">Departamento</label>
                         <select class="form-select" v-model="rel_edit.dep" size="1" aria-label="size 3 select example">
-                            <option value="" selected>Selecione um Departamento</option>
-                            <option v-for="(dep, id) in listdep" :key="id" :value="dep.id">{{dep.departamentos}}</option>
+                            <option class="text-center" value="" selected>Selecione um Departamento</option>
+                            <option class="text-center" v-for="(dep, id) in listdep" :key="id" :value="dep.id">{{dep.departamentos}}</option>
                         </select>
                         <label class="form-label mt-3">Relacionado a</label>
                         <select class="form-select" v-model="rel_edit.top" size="1" aria-label="size 3 select example">
-                            <option value="" selected>Selecione um Topico</option>
-                            <option v-for="(top, id) in listtop" :key="id" :value="top.id">{{top.topicos}}</option>
+                            <option class="text-center" value="" selected>Selecione um Topico</option>
+                            <option class="text-center" v-for="(top, id) in listtop" :key="id" :value="top.id">{{top.topicos}}</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -247,69 +248,94 @@
 
     <!-- Modal Adicionar Atribuição ao Relacionamento -->
     <div class="modal fade" v-for="(edit_rel, id) in listrel" :key="id" :id="'aditreluser' + edit_rel.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Adicionar Atribuição</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="alert alert-danger" v-show="erroalert" role="alert">
-                <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Adicionar Atribuição</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" v-show="erroalert" role="alert">
+                        <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
+                    </div>
+                    <form @submit.prevent="AdicionarAtrib">
+                        <div class="mb-3">
+                            <label class="form-label">Atribuir a</label>
+                            <select class="form-select" v-model="adc_atribuido.rel_user_edit" size="1" aria-label="size 3 select example">
+                                <option class="text-center" value="" selected>Selecione um Usuario</option>
+                                <option class="text-center" v-for="(user, id) in listuser" :key="id" :value="user.id">{{user.name}}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" @click="EnvIdRel(edit_rel.id)" class="btn btn-primary">Adicionar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <form @submit.prevent="AdicionarAtrib">
-              <div class="mb-3">
-                    <label class="form-label">Atribuir a</label>
-                    <select class="form-select" v-model="adc_atribuido.rel_user_edit" size="1" aria-label="size 3 select example">
-                        <option value="" selected>Selecione um Usuario</option>
-                        <option v-for="(user, id) in listuser" :key="id" :value="user.id">{{user.name}}</option>
-                    </select>
-              </div>
-              <div class="mb-3">
-                  <button type="submit" @click="EnvIdRel(edit_rel.id)" class="btn btn-primary">Adicionar</button>
-              </div>
-          </form>
-          </div>
         </div>
-      </div>
     </div>
 
-    <div class="modal fade" id="excluirreluser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Modal Excluir Atribuição ao Relacionamento -->
+    <div class="modal fade" v-for="(edit_rel, id) in listrel" :key="id" :id="'excluirreluser' + edit_rel.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Excluir Atribuição</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="ExcluirAtrib(edit_rel.id, trash_user)">
+                        <div class="mb-3">
+                            <select class="form-select" v-model="trash_user" size="1" aria-label="size 3 select example">
+                                <option class="text-center" value="" selected>Selecione um Usuario</option>
+                                <option class="text-center" v-for="(user_rel, id) in edit_rel.atribuidos" :key="id" :value="user_rel.id" selected>{{user_rel.name}}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Excluir Relacionamento -->
+    <div class="modal fade" v-for="(edit_rel, id) in listrel" :key="id" :id="'excluirel' + edit_rel.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Excluir Atribuição</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="ExcluirRel(edit_rel.id)">
+                        <div class="mb-3 text-center">
+                            <label class="form-label">Realmente quer Excluir o Relacionamento <b>{{edit_rel.id}}</b></label>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger ms-3">Excluir</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Excluir Departamento -->
+    <div class="modal fade" v-for="(departamentos, id) in listdep" :key="id" :id="'excluirdep' + departamentos.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Excluir Atribuição</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Excluir Departamento</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="{{route('delete_atributo')}}" method="POST">
-              <div class="mb-3">
-                  <input type="hidden" name="id_relacionamento" value="{{$item->id}}">
-                  <select class="form-select" name="rel_user_edit" size="1" aria-label="size 3 select example">
-                        <option value="" selected></option>
-                  </select>
-              </div>
-              <div class="mb-3">
-                  <button type="submit" class="btn btn-danger">Excluir</button>
-              </div>
-          </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="excluirdep" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Excluir Atribuição</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="{{route('excluirdep')}}" method="POST">
+            <form @submit.prevent="ExcluirDep(departamentos.id)">
               <div class="mb-3 text-center">
                   <input type="hidden" name="id_departamento" value="">
-                  <label class="form-label">Realmente quer Excluir o Departamento <b></b></label>
+                  <label class="form-label">Realmente quer Excluir o Departamento <b>{{departamentos.departamentos}}</b></label>
               </div>
               <div class="mb-3 text-center">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -344,28 +370,7 @@
       </div>
     </div>
 
-    <div class="modal fade" id="excluirel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Excluir Atribuição</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="{{route('excluirel')}}" method="POST">
-              <div class="mb-3 text-center">
-                  <input type="hidden" name="id_rel" value="{{$item->id}}">
-                  <label class="form-label">Realmente quer Excluir o Relacionamento <b></b></label>
-              </div>
-              <div class="mb-3 text-center">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-danger ms-3">Excluir</button>
-              </div>
-          </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 </template>
 
 <script>
@@ -381,6 +386,7 @@
                 listrel:[],
                 erros:[],
                 erroalert: false,
+                trash_user: '',
                 adc_atribuido: {
                     id_rel: '',
                     rel_user_edit: '',
@@ -403,6 +409,10 @@
                     cria_top: ''
                 }
             }
+        },
+
+        props:{
+            titulo: String
         },
 
         mounted(){
@@ -497,6 +507,48 @@
                     }else{
                         this.erroalert = false
                         this.buscarRel()
+                        // document.location.reload(true)
+                    }
+                })
+            },
+
+            ExcluirAtrib(dado, dado2){
+                getPost.trash_atribuido(dado, dado2)
+                .then(resposta =>{
+                    if(resposta.errors){
+                        this.erros = resposta.errors
+                        this.erroalert = true
+                    }else{
+                        this.erroalert = false
+                        this.buscarRel()
+                        // document.location.reload(true)
+                    }
+                })
+            },
+
+            ExcluirRel(dado){
+                getPost.trash_relacionamento(dado)
+                .then(resposta =>{
+                    if(resposta.errors){
+                        this.erros = resposta.errors
+                        this.erroalert = true
+                    }else{
+                        this.erroalert = false
+                        this.buscarRel()
+                        // document.location.reload(true)
+                    }
+                })
+            },
+
+            ExcluirDep(dado){
+                getPost.trash_departamento(dado)
+                .then(resposta =>{
+                    if(resposta.errors){
+                        this.erros = resposta.errors
+                        this.erroalert = true
+                    }else{
+                        this.erroalert = false
+                        this.buscarDep()
                         // document.location.reload(true)
                     }
                 })
