@@ -383,7 +383,7 @@
 </template>
 
 <script>
-    import getPost from '../../services/getpost'
+    import getPost from '../../services/Axios/getpost'
 
     export default {
         name: 'Component_Painel',
