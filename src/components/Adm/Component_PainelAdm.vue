@@ -50,7 +50,7 @@
                             <th scope="row" class="border">{{topico.id}}</th>
                             <td >{{topico.topicos}}</td>
                             <td>
-                                <button data-bs-target="#excluirtop" class="btn btn-danger" data-bs-toggle="modal">
+                                <button :data-bs-target="'#excluirtop' + topico.id" class="btn btn-danger" data-bs-toggle="modal">
                                     <fa :icon="['fa','trash-alt']"/>
                                 </button>
                             </td>
@@ -284,6 +284,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="alert alert-danger" v-show="erroalert" role="alert">
+                        <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
+                    </div>
                     <form @submit.prevent="ExcluirAtrib(edit_rel.id, trash_user)">
                         <div class="mb-3">
                             <select class="form-select" v-model="trash_user" size="1" aria-label="size 3 select example">
@@ -309,6 +312,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="alert alert-danger" v-show="erroalert" role="alert">
+                        <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
+                    </div>
                     <form @submit.prevent="ExcluirRel(edit_rel.id)">
                         <div class="mb-3 text-center">
                             <label class="form-label">Realmente quer Excluir o Relacionamento <b>{{edit_rel.id}}</b></label>
@@ -325,52 +331,55 @@
 
     <!-- Modal Excluir Departamento -->
     <div class="modal fade" v-for="(departamentos, id) in listdep" :key="id" :id="'excluirdep' + departamentos.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Excluir Departamento</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form @submit.prevent="ExcluirDep(departamentos.id)">
-              <div class="mb-3 text-center">
-                  <input type="hidden" name="id_departamento" value="">
-                  <label class="form-label">Realmente quer Excluir o Departamento <b>{{departamentos.departamentos}}</b></label>
-              </div>
-              <div class="mb-3 text-center">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-danger ms-3">Excluir</button>
-              </div>
-          </form>
-          </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Excluir Departamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" v-show="erroalert" role="alert">
+                        <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
+                    </div>
+                    <form @submit.prevent="ExcluirDep(departamentos.id)">
+                        <div class="mb-3 text-center">
+                            <label class="form-label">Realmente quer Excluir o Departamento <b>{{departamentos.departamentos}}</b></label>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger ms-3">Excluir</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
-    <div class="modal fade" id="excluirtop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Excluir Atribuição</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="{{route('excluirtop')}}" method="POST">
-              <div class="mb-3 text-center">
-                  <input type="hidden" name="id_topico" value="">
-                  <label class="form-label">Realmente quer Excluir o Topico <b></b></label>
-              </div>
-              <div class="mb-3 text-center">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-danger ms-3">Excluir</button>
-              </div>
-          </form>
-          </div>
+    <!-- Modal Excluir Topico -->
+    <div class="modal fade" v-for="(topicos, id) in listtop" :key="id" :id="'excluirtop' + topicos.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Excluir Atribuição</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" v-show="erroalert" role="alert">
+                        <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
+                    </div>
+                    <form @submit.prevent="ExcluirTop(topicos.id)">
+                        <div class="mb-3 text-center">
+                            <label class="form-label">Realmente quer Excluir o Topico <b>{{topicos.topicos}}</b></label>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger ms-3">Excluir</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
-    
 </template>
 
 <script>
@@ -436,7 +445,6 @@
             
             .then(resposta => {
                 this.listrel = resposta.data
-                console.log(resposta.data)
             })
         },
 
@@ -460,7 +468,6 @@
                 .then(resposta =>{
                     if(resposta.errors){
                         this.erros = resposta.errors
-                        console.log(this.erros)
                         this.erroalert = true
                     }else{
                         this.erroalert = false
@@ -549,6 +556,20 @@
                     }else{
                         this.erroalert = false
                         this.buscarDep()
+                        // document.location.reload(true)
+                    }
+                })
+            },
+
+            ExcluirTop(dado){
+                getPost.trash_topico(dado)
+                .then(resposta =>{
+                    if(resposta.errors){
+                        this.erros = resposta.errors
+                        this.erroalert = true
+                    }else{
+                        this.erroalert = false
+                        this.buscarTop()
                         // document.location.reload(true)
                     }
                 })

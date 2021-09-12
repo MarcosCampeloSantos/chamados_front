@@ -168,6 +168,23 @@ export default{
             if(erro.response){
                 return erro.response.data;
             }
+        })
+    },
+
+    trash_topico: (trash_top) => {
+        return http.delete('trash_topico', {params: {'id': trash_top}}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response;
+        })
+        .catch(erro => {
+            if(erro.response){
+                return erro.response.data;
+            }
             
         })
     },
