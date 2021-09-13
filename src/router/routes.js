@@ -1,3 +1,5 @@
+import Guard from '../services/Middleware/middleware'
+
 export default[
     {
         path: '/',
@@ -7,16 +9,19 @@ export default[
     {
         path: '/Home',
         name: 'Home',
-        component: () => import('../views/Home/Home.vue')
+        component: () => import('../views/Home/Home.vue'),
+        beforeEnter: Guard.auth
     },
     {
         path: '/Criar_User',
         name: 'CriarUser',
-        component: () => import('../views/Usuario/CriarUser.vue')
+        component: () => import('../views/Usuario/CriarUser.vue'),
+        beforeEnter: Guard.auth
     },
     {
         path: '/Painel_Adm',
         name: 'PainelAdm',
-        component: () => import('../views/Adm/PainelAdm.vue')
+        component: () => import('../views/Adm/PainelAdm.vue'),
+        beforeEnter: Guard.auth
     }
 ]

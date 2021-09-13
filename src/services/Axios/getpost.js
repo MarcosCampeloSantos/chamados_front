@@ -2,6 +2,23 @@ import { http } from './config'
 
 export default{
 
+    Login: (login) => {
+        return http.post('login', login,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response.data;
+        })
+        .catch(erro => {
+            if(erro.response){
+                return erro.response.data;
+            }
+        })
+    },
+
 // Methods Post
     criar_user: (user) => {
         return http.post('criar_user', user,{
