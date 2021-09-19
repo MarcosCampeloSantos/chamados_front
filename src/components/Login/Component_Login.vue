@@ -27,6 +27,7 @@
     import getPost from '../../services/Axios/getpost'
     import Cookie from 'js-cookie'
 
+
     export default {
         name: 'CompLogin',
         data(){
@@ -47,10 +48,12 @@
                     }else{
                         this.erroalert = false
                         Cookie.set('_app_token', resposta.auth_token)
-                        // document.location.reload(true)
+                        localStorage.setItem("auth",JSON.stringify(resposta))
+                        this.$router.push({name: 'Home'})
                     }
                 })
-            }
+            },
         },
+        
     }
 </script>

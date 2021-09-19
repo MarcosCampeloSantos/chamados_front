@@ -13,7 +13,7 @@
                 <a href="{{route('paineladm')}}" class="btn btn-primary btn-sm mt-3"><i class="fas fa-tachometer-alt"></i> Painel de Administração</a>
                 <div class="row">
                     <a href="{{route('homeOp')}}" class="btn btn-primary btn-sm mt-3 m-1 col"><i class="fas fa-tachometer-alt"></i> Modo Operador</a>
-                    <a href="{{route('sair')}}" class="btn btn-primary btn-sm mt-3 m-1 col"><i class="fas fa-door-open"></i> Sair</a>
+                    <a @click="Sair" class="btn btn-primary btn-sm mt-3 m-1 col"><fa :icon="['fa','door-open']"/> Sair</a>
                 </div>
             
             </div>
@@ -309,12 +309,37 @@
 </template>
 
 <script>
+
+    import {mapGetters} from 'vuex'
+    import Cookies from "js-cookie"
+    import getPost from '../../services/Axios/getpost'
+
     export default {
         name: 'Component_HomeAdm',
         data(){
             return{
 
             }
+        },
+        methods:{
+            Sair(){
+                getPost.Logout(this.GetDados)
+                .then(resposta =>{
+                    if(resposta.errors){
+                        this.erros = resposta.errors
+                        this.erroalert = true
+                    }else{
+                        this.erroalert = false
+                        localStorage.removeItem("auth")
+                        Cookies.remove("_app_token")
+                        document.location.reload()
+                    }
+                })
+            }
+        },
+
+        computed:{
+            ...mapGetters(['GetDados'])
         }
     }
 </script>

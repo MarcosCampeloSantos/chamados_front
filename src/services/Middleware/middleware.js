@@ -1,7 +1,7 @@
 import Cookies from "js-cookie"
 
 export default{
-    auth(next){
+    auth(to, from, next){
         const token = Cookies.get('_app_token')
         
         if(token){
@@ -9,7 +9,5 @@ export default{
         }else{
             next('/')
         }
-
-       
     }
 }
