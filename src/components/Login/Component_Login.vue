@@ -3,6 +3,9 @@
         <div class="login mt-5 cor container-fluid shadow p-3 mb-5 rounded">
             <div class="mb-3 mx-auto">
                 <h1 class="display-6 text-center">Login</h1>
+                <div class="alert alert-danger" v-show="erroalert" role="alert">
+                    <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
+                </div>
                 <form @submit.prevent="AuthLogin">
                     <div class="mb-3">
                         <label class="form-label">E-mail</label>
@@ -35,15 +38,31 @@
                 Login:{
                     email: '',
                     password: ''
-                }
+                },
+                erros: [],
+                erroalert: false
             }
         },
         methods:{
             AuthLogin(){
+                
+
                 getPost.Login(this.Login)
                 .then(resposta =>{
                     if(resposta.errors){
-                        this.erros = resposta.errors
+                        var erro = resposta.errors
+                        this.erros = []
+                        if(erro.password){
+                            erro.password.forEach(element => {
+                                this.erros.push(element)
+                            });
+                        }
+
+                        if(erro.email){
+                            erro.email.forEach(element => {
+                                this.erros.push(element)
+                            });
+                        }
                         this.erroalert = true
                     }else{
                         this.erroalert = false

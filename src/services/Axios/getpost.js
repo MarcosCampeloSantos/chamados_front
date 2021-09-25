@@ -8,7 +8,8 @@ if(token){
         headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'withCredentials': 'true'
+            // 'Accept': 'application/json'
         }
     }
 }
@@ -29,6 +30,18 @@ export default{
 
     Logout: (logout) => {
         return http.post('logout', logout, config)
+        .then(response => {
+            return response.data;
+        })
+        .catch(erro => {
+            if(erro.response){
+                return erro.response.data;
+            }
+        })
+    },
+
+    Verificacao: (verificacao) => {
+        return http.post('verificacao', verificacao, config)
         .then(response => {
             return response.data;
         })
