@@ -13,6 +13,18 @@ export default createStore({
   getters: {
     GetDados(state){
       return state
+    },
+
+    GetName(state){
+      return state.dados.user.name
+    },
+
+    isAdm(state){
+      if(state.dados.user.nivel == '1'){
+        return true
+      }else{
+        return false
+      }
     }
   }
 })

@@ -22,6 +22,6 @@ export default[
         path: '/Painel_Adm',
         name: 'PainelAdm',
         component: () => import('../views/Adm/PainelAdm.vue'),
-        beforeEnter: Guard.auth
+        beforeEnter: Guard.authAdm
     }
 ]

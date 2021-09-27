@@ -45,8 +45,6 @@
         },
         methods:{
             AuthLogin(){
-                
-
                 getPost.Login(this.Login)
                 .then(resposta =>{
                     if(resposta.errors){

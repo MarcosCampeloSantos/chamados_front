@@ -1,23 +1,14 @@
 import { http } from './config'
 import Cookies from "js-cookie"
 
-const token = Cookies.get('_app_token')
-
-if(token){
-    var config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-            'withCredentials': 'true'
-            // 'Accept': 'application/json'
-        }
-    }
-}
-
 export default{
 
     Login: (login) => {
-        return http.post('login', login, config)
+        return http.post('login', login, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response.data;
         })
@@ -29,7 +20,11 @@ export default{
     },
 
     Logout: (logout) => {
-        return http.post('logout', logout, config)
+        return http.post('logout', logout, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response.data;
         })
@@ -41,7 +36,11 @@ export default{
     },
 
     Verificacao: (verificacao) => {
-        return http.post('verificacao', verificacao, config)
+        return http.post('verificacao', verificacao, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response.data;
         })
@@ -54,7 +53,11 @@ export default{
 
 // Methods Post
     criar_user: (user) => {
-        return http.post('criar_user', user, config)
+        return http.post('criar_user', user, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response.data;
         })
@@ -66,7 +69,11 @@ export default{
     },
 
     criar_dep:(dep) => {
-        return http.post('criar_dep', dep, config)
+        return http.post('criar_dep', dep, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -79,7 +86,11 @@ export default{
     },
 
     criar_top:(top) => {
-        return http.post('criar_top', top, config)
+        return http.post('criar_top', top, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -92,7 +103,11 @@ export default{
     },
 
     criar_rel:(rel) => {
-        return http.post('criar_rel', rel, config)
+        return http.post('criar_rel', rel, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -105,7 +120,11 @@ export default{
     },
 
     editar_rel:(edit_rel) => {
-        return http.post('editar_rel', edit_rel, config)
+        return http.post('editar_rel', edit_rel, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -118,7 +137,11 @@ export default{
     },
 
     adc_atribuido:(adc_atrib) => {
-        return http.post('adc_atribuido', adc_atrib, config)
+        return http.post('adc_atribuido', adc_atrib, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -138,7 +161,11 @@ export default{
                 'id_rel': trash_rel_id,
                 'id_user': trash_id_user
             }
-        }, config)
+        }, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -151,7 +178,11 @@ export default{
     },
 
     trash_relacionamento:(trash_rel) => {
-        return http.delete('trash_relacionamento', {params: {'id': trash_rel}}, config)
+        return http.delete('trash_relacionamento', {params: {'id': trash_rel}}, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -164,7 +195,11 @@ export default{
     },
 
     trash_departamento:(trash_dep) => {
-        return http.delete('trash_departamento', {params: {'id': trash_dep}}, config)
+        return http.delete('trash_departamento', {params: {'id': trash_dep}}, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -176,7 +211,11 @@ export default{
     },
 
     trash_topico: (trash_top) => {
-        return http.delete('trash_topico', {params: {'id': trash_top}}, config)
+        return http.delete('trash_topico', {params: {'id': trash_top}}, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -190,7 +229,11 @@ export default{
 
 // Methods Get
     buscar_users: () => {
-        return http.get('buscar_users', config)
+        return http.get('buscar_users', 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -200,7 +243,11 @@ export default{
     },
 
     buscar_dep: () => {
-        return http.get('buscar_dep', config)
+        return http.get('buscar_dep', 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -210,7 +257,11 @@ export default{
     },
 
     buscar_top: () => {
-        return http.get('buscar_top', config)
+        return http.get('buscar_top', 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
@@ -220,7 +271,11 @@ export default{
     },
 
     buscar_rel: () => {
-        return http.get('buscar_rel', config)
+        return http.get('buscar_rel', 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
         .then(response => {
             return response;
         })
