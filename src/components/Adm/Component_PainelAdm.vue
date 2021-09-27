@@ -383,7 +383,7 @@
 </template>
 
 <script>
-    import getPost from '../../services/getpost'
+    import getPost from '../../services/Axios/getpost'
 
     export default {
         name: 'Component_Painel',
@@ -467,7 +467,27 @@
                 getPost.criar_rel(this.rel)
                 .then(resposta =>{
                     if(resposta.errors){
-                        this.erros = resposta.errors
+                        var erro = resposta.errors
+                        this.erros = []
+                        // this.erros = resposta.errors
+                        if(erro.rel_dep){
+                            erro.rel_dep.forEach(element => {
+                                this.erros.push(element)
+                            });
+                        }
+                        
+                        if(erro.rel_user){
+                            erro.rel_user.forEach(element => {
+                                this.erros.push(element)
+                            });
+                        }
+
+                        if(erro.rel_top){
+                            erro.rel_top.forEach(element => {
+                                this.erros.push(element)
+                            });
+                        }
+                        
                         this.erroalert = true
                     }else{
                         this.erroalert = false

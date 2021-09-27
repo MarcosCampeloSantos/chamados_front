@@ -1,18 +1,18 @@
 <template>
-    <HomeAdm />
+    <Home />
 </template>
 
 <script>
-    import HomeAdm from '../../components/Home/Component_HomeAdm'
+    import Home from '../../components/Home/Component_Home'
     export default {
-        name: 'Home_Adm ',
+        name: 'Home ',
         data(){
             return{
                 
             }
         },
         components:{
-            HomeAdm
+            Home
         }
     }
 </script>

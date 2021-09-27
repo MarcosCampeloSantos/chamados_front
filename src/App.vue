@@ -6,7 +6,6 @@
 <script>
 
   import Footer from './components/Layouts/Component_Footer.vue'
-  import '../node_modules/bootstrap/dist/js/bootstrap.js'
 
   export default {
     name: 'App',

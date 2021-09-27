@@ -4,22 +4,22 @@
     <div class="tamanho_padrao mx-auto mt-5 shadow p-3 mb-5 rounded">
     <div class="row justify-content-center mb-5 index">
         <div class="overflow-hidden card perfil text-center">
-            <i class="fas fa-address-card mt-3 fa-4x"></i>
+            <fa class="mx-auto mt-2 iconPerfil" :icon="['fas','address-card']"/>
             <div class="card-body lh-1">
                 <a href=""><h6 class="display-6">Perfil</h6></a>
                 <div class="">
-                    <p class="card-title text-center">Bem vindo,<b> {{$name}}</b></p>
+                    <p class="card-title text-center">Bem vindo, <b>{{GetName}}</b></p>
                 </div>
-                <a href="{{route('paineladm')}}" class="btn btn-primary btn-sm mt-3"><i class="fas fa-tachometer-alt"></i> Painel de Administração</a>
+                <router-link v-if="isAdm" to="/Painel_Adm" class="btn btn-primary btn-sm mt-3"><fa :icon="['fa','tachometer-alt']"/> Painel de Administração</router-link>
                 <div class="row">
                     <a href="{{route('homeOp')}}" class="btn btn-primary btn-sm mt-3 m-1 col"><i class="fas fa-tachometer-alt"></i> Modo Operador</a>
-                    <a href="{{route('sair')}}" class="btn btn-primary btn-sm mt-3 m-1 col"><i class="fas fa-door-open"></i> Sair</a>
+                    <a @click="Sair" class="btn btn-primary btn-sm mt-3 m-1 col"><fa :icon="['fa','door-open']"/> Sair</a>
                 </div>
             
             </div>
         </div>
         <a href="{{route('chamado')}}" class="style-card hvr-bob cor-cartao1 cartao rounded-2 text-center">Criar um novo Chamado</a>
-        <a href="{{route('usuarios')}}" class="style-card hvr-bob cor-cartao2 cartao rounded-2 text-center">Criar e Editar Usuarios</a>
+        <router-link to="/Criar_User" class="style-card hvr-bob cor-cartao2 cartao rounded-2 text-center">Criar e Editar Usuarios</router-link>
         <a href="{{route('finalizadosadm')}}" class="style-card hvr-bob cor-cartao3 cartao rounded-2 text-center">Chamados Finalizados</a>
     </div>
 
@@ -302,19 +302,46 @@
                 </div>
             </div>
     </div>
-       
-            
-    
-
 </template>
 
 <script>
+
+    import {mapGetters} from 'vuex'
+    import Cookies from "js-cookie"
+    import getPost from '../../services/Axios/getpost'
+
     export default {
-        name: 'Component_HomeAdm',
+        name: 'Component_Home',
         data(){
             return{
-
+                erroalert: false
             }
+        },
+        methods:{
+            Sair(){
+                getPost.Logout(this.GetDados)
+                .then(resposta =>{
+                    if(resposta.errors){
+                        this.erros = resposta.errors
+                        this.erroalert = true
+                    }else{
+                        this.erroalert = false
+                        localStorage.removeItem("auth")
+                        Cookies.remove("_app_token")
+                        document.location.reload()
+                    }
+                })
+            }
+        },
+
+        computed:{
+            ...mapGetters(['GetDados', 'GetName', 'isAdm'])
         }
     }
 </script>
+
+<style scoped>
+    .iconPerfil{
+        font-size: 5rem;
+    }
+</style>
