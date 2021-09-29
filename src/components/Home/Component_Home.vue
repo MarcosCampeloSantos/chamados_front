@@ -1,7 +1,5 @@
 <template>
 <!-- Tela Home -->
-<div class="camada cor mx-auto">
-    <div class="tamanho_padrao mx-auto mt-5 shadow p-3 mb-5 rounded">
     <div class="row justify-content-center mb-5 index">
         <div class="overflow-hidden card perfil text-center">
             <fa class="mx-auto mt-2 iconPerfil" :icon="['fas','address-card']"/>
@@ -194,8 +192,6 @@
                 </table>
             </div>
         </div>
-    </div>
-</div>
         
         
             <div class="modal fade" id="exampleModal{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -328,7 +324,7 @@
                         this.erroalert = false
                         localStorage.removeItem("auth")
                         Cookies.remove("_app_token")
-                        document.location.reload()
+                        this.$router.go();
                     }
                 })
             }
@@ -336,6 +332,7 @@
 
         computed:{
             ...mapGetters(['GetDados', 'GetName', 'isAdm'])
+
         }
     }
 </script>

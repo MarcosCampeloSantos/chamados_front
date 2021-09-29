@@ -23,5 +23,12 @@ export default[
         name: 'PainelAdm',
         component: () => import('../views/Adm/PainelAdm.vue'),
         beforeEnter: Guard.authAdm
+    },
+    {
+        path: '/Chamado',
+        name: 'Chamado',
+        component: () => import('../views/Chamados/CriarChamado.vue'),
+        beforeEnter: Guard.authAdm
     }
+
 ]

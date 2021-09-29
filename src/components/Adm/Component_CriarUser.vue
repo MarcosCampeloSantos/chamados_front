@@ -1,41 +1,37 @@
 <template>
-    <div class="camada cor mx-auto">
-        <div class="tamanho_padrao mx-auto mt-5 shadow p-3 mb-5 rounded">
-            <h1 class="display-6 text-center">CRIAR USUARIO</h1>
-            <div class="m-3">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Novo Usuario
-                </button>
-            </div>
-            <div class="mx-auto mb-3">
-                <div class="overflow-auto listagem-chamados cor border rounded-2 m-3">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr class="table-dark sticky-top">
-                                <th scope="row">CODIGO</th>
-                                <th scope="row">NOME</th>
-                                <th scope="row">DEPARTAMENTO</th>
-                                <th scope="row">NIVEL DE ACESSO</th>
-                                <th scope="row">DATA</th>
-                                <th scope="row" class="text-center">EDITAR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(user, id) in listuser" :key="id">
-                                <th scope="row">{{user.id}}</th>
-                                <td>{{user.name}}</td>
-                                <td>{{user.departamento}}</td>
-                                <td v-if="user.nivel == 1">Administrador</td>
-                                <td v-if="user.nivel == 2">Usuario</td>
-                                <td v-if="user.nivel == 3">Supervisor</td>
-                                <td v-if="user.nivel == 4">Operador</td>
-                                <td>{{user.created_at}}</td>
-                                <td class="text-center"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <h1 class="display-6 text-center">CRIAR USUARIO</h1>
+    <div class="m-3">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Novo Usuario
+        </button>
+    </div>
+    <div class="mx-auto mb-3">
+        <div class="overflow-auto listagem-chamados cor border rounded-2 m-3">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr class="table-dark sticky-top">
+                        <th scope="row">CODIGO</th>
+                        <th scope="row">NOME</th>
+                        <th scope="row">DEPARTAMENTO</th>
+                        <th scope="row">NIVEL DE ACESSO</th>
+                        <th scope="row">DATA</th>
+                        <th scope="row" class="text-center">EDITAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(user, id) in listuser" :key="id">
+                        <th scope="row">{{user.id}}</th>
+                        <td>{{user.name}}</td>
+                        <td>{{user.departamento}}</td>
+                        <td v-if="user.nivel == 1">Administrador</td>
+                        <td v-if="user.nivel == 2">Usuario</td>
+                        <td v-if="user.nivel == 3">Supervisor</td>
+                        <td v-if="user.nivel == 4">Operador</td>
+                        <td>{{user.created_at}}</td>
+                        <td class="text-center"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

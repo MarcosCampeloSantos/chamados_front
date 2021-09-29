@@ -1,17 +1,11 @@
 <template>
-  <router-view />
-  <Footer />
+    <router-view />
 </template>
 
 <script>
 
-  import Footer from './components/Layouts/Component_Footer.vue'
-
   export default {
     name: 'App',
-    components:{
-      Footer
-    }
   }
 </script>
 

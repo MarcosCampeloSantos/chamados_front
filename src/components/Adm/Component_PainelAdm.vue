@@ -1,121 +1,117 @@
 <template>
-    <div class="camada cor mx-auto">
-        <div class="tamanho_padrao mx-auto mt-5 shadow p-3 mb-5 rounded">
-            <div class="mb-6">
-                <h1 class="display-6 text-center">{{titulo}}</h1>
-            </div>
-            <div class="row ">
-                <div class="w-25 mx-auto col">
-                <h5 class="text-center">Departamentos</h5>
-                <div class="overflow-auto border rounded-3 listagem-dp">
-                    <table class="table table-striped table-hover">
-                    <thead>
-                        <tr class="text-center table-dark sticky-top">
-                            <th scope="row">ID</th>
-                            <th scope="row">DEPARTAMENTOS</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-center" v-for="(departamentos, id) in listdep" :key="id">
-                            <th scope="row" class="border">{{departamentos.id}}</th>
-                            <td >{{departamentos.departamentos}}</td>
-                            <td>
-                                <button :data-bs-target="'#excluirdep' + departamentos.id" class="btn btn-danger" data-bs-toggle="modal">
-                                    <fa :icon="['fa','trash-alt']"/>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#dep">
-                    Inserir
-                </button>
-                </div>
+    <div class="mb-6">
+        <h1 class="display-6 text-center">{{titulo}}</h1>
+    </div>
+    <div class="row ">
+        <div class="w-25 mx-auto col">
+        <h5 class="text-center">Departamentos</h5>
+        <div class="overflow-auto border rounded-3 listagem-dp">
+            <table class="table table-striped table-hover">
+            <thead>
+                <tr class="text-center table-dark sticky-top">
+                    <th scope="row">ID</th>
+                    <th scope="row">DEPARTAMENTOS</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" v-for="(departamentos, id) in listdep" :key="id">
+                    <th scope="row" class="border">{{departamentos.id}}</th>
+                    <td >{{departamentos.departamentos}}</td>
+                    <td>
+                        <button :data-bs-target="'#excluirdep' + departamentos.id" class="btn btn-danger" data-bs-toggle="modal">
+                            <fa :icon="['fa','trash-alt']"/>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#dep">
+            Inserir
+        </button>
+        </div>
 
-                <div class="w-25 mx-auto col">
-                <h5 class="text-center">Topicos de Atendimento</h5>
-                <div class="overflow-auto border rounded-3 listagem-dp">
-                    <table class="table table-striped table-hover">
-                    <thead>
-                        <tr class="text-center table-dark sticky-top">
-                            <th scope="row">ID</th>
-                            <th scope="row">TOPICO</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-center" v-for="(topico, id) in listtop" :key="id">
-                            <th scope="row" class="border">{{topico.id}}</th>
-                            <td >{{topico.topicos}}</td>
-                            <td>
-                                <button :data-bs-target="'#excluirtop' + topico.id" class="btn btn-danger" data-bs-toggle="modal">
+        <div class="w-25 mx-auto col">
+        <h5 class="text-center">Topicos de Atendimento</h5>
+        <div class="overflow-auto border rounded-3 listagem-dp">
+            <table class="table table-striped table-hover">
+            <thead>
+                <tr class="text-center table-dark sticky-top">
+                    <th scope="row">ID</th>
+                    <th scope="row">TOPICO</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" v-for="(topico, id) in listtop" :key="id">
+                    <th scope="row" class="border">{{topico.id}}</th>
+                    <td >{{topico.topicos}}</td>
+                    <td>
+                        <button :data-bs-target="'#excluirtop' + topico.id" class="btn btn-danger" data-bs-toggle="modal">
+                            <fa :icon="['fa','trash-alt']"/>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#top">
+            Inserir
+        </button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="w-25 mx-auto col">
+        <h5 class="text-center">Relacionamentos</h5>
+        <div class="overflow-auto border rounded-3 listagem-dp">
+            <table class="table table-striped table-hover">
+            <thead>
+                <tr class="text-center table-dark sticky-top">
+                    <th scope="row">ID</th>
+                    <th scope="row">DEPARTAMENTO</th>
+                    <th scope="row">TOPICOS</th>
+                    <th scope="row">ATRIBUIDO</th>
+                    <th scope="row">EDIÇÃO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center align-middle" v-for="(rel, id) in listrel" :key="id">
+                    <th scope="row" class="border">{{rel.id}}</th>
+                    <td>{{rel.departamento_name}}</td>
+                    <td>{{rel.topico_name}}</td>
+                    <td>
+                        <div v-for="(rel_atrib, id) in rel.atribuidos" :key="id">
+                            {{rel_atrib.name}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-auto">
+                                <button :data-bs-target="'#excluirreluser' + rel.id" class="btn btn-danger me-1" data-bs-toggle="modal">
+                                    <fa :icon="['fa','minus-circle']"/>
+                                </button>
+                                <button :data-bs-target="'#aditreluser' + rel.id" class="btn btn-primary" data-bs-toggle="modal">
+                                    <fa :icon="['fa','plus-circle']"/>
+                                </button>
+                            </div>                
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal" :data-bs-target="'#editrel' + rel.id">
+                                    Editar
+                                </button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="'#excluirel' + rel.id">
                                     <fa :icon="['fa','trash-alt']"/>
                                 </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#top">
-                    Inserir
-                </button>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="w-25 mx-auto col">
-                <h5 class="text-center">Relacionamentos</h5>
-                <div class="overflow-auto border rounded-3 listagem-dp">
-                    <table class="table table-striped table-hover">
-                    <thead>
-                        <tr class="text-center table-dark sticky-top">
-                            <th scope="row">ID</th>
-                            <th scope="row">DEPARTAMENTO</th>
-                            <th scope="row">TOPICOS</th>
-                            <th scope="row">ATRIBUIDO</th>
-                            <th scope="row">EDIÇÃO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-center align-middle" v-for="(rel, id) in listrel" :key="id">
-                            <th scope="row" class="border">{{rel.id}}</th>
-                            <td>{{rel.departamento_name}}</td>
-                            <td>{{rel.topico_name}}</td>
-                            <td>
-                                <div v-for="(rel_atrib, id) in rel.atribuidos" :key="id">
-                                    {{rel_atrib.name}}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <button :data-bs-target="'#excluirreluser' + rel.id" class="btn btn-danger me-1" data-bs-toggle="modal">
-                                            <fa :icon="['fa','minus-circle']"/>
-                                        </button>
-                                        <button :data-bs-target="'#aditreluser' + rel.id" class="btn btn-primary" data-bs-toggle="modal">
-                                            <fa :icon="['fa','plus-circle']"/>
-                                        </button>
-                                    </div>                
-                                    <div class="col-auto">
-                                        <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal" :data-bs-target="'#editrel' + rel.id">
-                                            Editar
-                                        </button>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="'#excluirel' + rel.id">
-                                            <fa :icon="['fa','trash-alt']"/>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                <button type="button" class="btn btn-primary mt-2"  data-bs-toggle="modal" data-bs-target="#rel">
-                    Inserir
-                </button>
-                </div>
-            </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <button type="button" class="btn btn-primary mt-2"  data-bs-toggle="modal" data-bs-target="#rel">
+            Inserir
+        </button>
         </div>
     </div>
 

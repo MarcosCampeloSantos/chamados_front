@@ -1,26 +1,22 @@
 <template>
-    <div class="camada mx-auto">
-        <div class="login mt-5 cor container-fluid shadow p-3 mb-5 rounded">
-            <div class="mb-3 mx-auto">
-                <h1 class="display-6 text-center">Login</h1>
-                <div class="alert alert-danger" v-show="erroalert" role="alert">
-                    <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
-                </div>
-                <form @submit.prevent="AuthLogin">
-                    <div class="mb-3">
-                        <label class="form-label">E-mail</label>
-                        <input type="email" class="form-control" v-model="Login.email" placeholder="Digite seu Email">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Senha</label>
-                        <input type="password" class="form-control" v-model="Login.password" placeholder="Digite Sua Senha">
-                    </div>
-                    <div claas="mb-3">
-                        <button type="submit" class="btn btn-primary">Entrar</button>
-                    </div>
-                </form>
-            </div>
+    <div class="mb-3 mx-auto">
+        <h1 class="display-6 text-center">Login</h1>
+        <div class="alert alert-danger" v-show="erroalert" role="alert">
+            <li v-for="(erro, index) in erros" :key="index">{{erro}}</li>
         </div>
+        <form @submit.prevent="AuthLogin">
+            <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input type="email" class="form-control" v-model="Login.email" placeholder="Digite seu Email">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Senha</label>
+                <input type="password" class="form-control" v-model="Login.password" placeholder="Digite Sua Senha">
+            </div>
+            <div claas="mb-3">
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+        </form>
     </div>
     <!-- <fa :icon="['fab','coffee']"/> -->
 </template>
