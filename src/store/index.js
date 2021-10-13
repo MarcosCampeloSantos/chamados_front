@@ -5,6 +5,9 @@ export default createStore({
     dados: JSON.parse(localStorage.getItem('auth') || "{}")
   },
   mutations: {
+    increment(state, dado){
+      state.dados = dado
+    }
   },
   actions: {
   },
