@@ -30,7 +30,7 @@ export default{
                     if(dados.user.nivel == '1'){
                         next()
                     }else{
-                        next('/Home')
+                        next(from)
                     }
                 }
             })

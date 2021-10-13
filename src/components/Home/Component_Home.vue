@@ -16,7 +16,7 @@
             
             </div>
         </div>
-        <a href="{{route('chamado')}}" class="style-card hvr-bob cor-cartao1 cartao rounded-2 text-center">Criar um novo Chamado</a>
+        <router-link to="/Chamado" class="style-card hvr-bob cor-cartao1 cartao rounded-2 text-center">Criar um novo Chamado</router-link>
         <router-link to="/Criar_User" class="style-card hvr-bob cor-cartao2 cartao rounded-2 text-center">Criar e Editar Usuarios</router-link>
         <a href="{{route('finalizadosadm')}}" class="style-card hvr-bob cor-cartao3 cartao rounded-2 text-center">Chamados Finalizados</a>
     </div>
@@ -332,7 +332,6 @@
 
         computed:{
             ...mapGetters(['GetDados', 'GetName', 'isAdm'])
-
         }
     }
 </script>
