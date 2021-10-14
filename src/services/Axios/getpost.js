@@ -153,6 +153,23 @@ export default{
         })
     },
 
+    criar_chamado:(criar_chamado) => {
+        return http.post('criar_chamado', criar_chamado, 
+        {headers: {
+            Authorization: `Bearer ${Cookies.get('_app_token')}`,
+            'Content-Type': 'application/json',
+        }})
+        .then(response => {
+            return response;
+        })
+        .catch(erro => {
+            if(erro.response){
+                return erro.response.data;
+            }
+            
+        })
+    },
+
 
 // Methods Delete
     trash_atribuido:(trash_rel_id, trash_id_user) => {
