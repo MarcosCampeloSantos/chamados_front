@@ -173,16 +173,17 @@ export default{
 
 // Methods Delete
     trash_atribuido:(trash_rel_id, trash_id_user) => {
-        return http.delete('trash_atribuido', {
+        return http.delete('trash_atribuido',
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                'Content-Type': 'application/json',
+            },
             params:{
                 'id_rel': trash_rel_id,
                 'id_user': trash_id_user
             }
-        }, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
+        })
         .then(response => {
             return response;
         })
@@ -195,11 +196,17 @@ export default{
     },
 
     trash_relacionamento:(trash_rel) => {
-        return http.delete('trash_relacionamento', {params: {'id': trash_rel}}, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
+        return http.delete('trash_relacionamento', 
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                'Content-Type': 'application/json',
+            },
+
+            params: {
+                'id': trash_rel
+            }
+        })
         .then(response => {
             return response;
         })
@@ -212,11 +219,17 @@ export default{
     },
 
     trash_departamento:(trash_dep) => {
-        return http.delete('trash_departamento', {params: {'id': trash_dep}}, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
+        return http.delete('trash_departamento', 
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                'Content-Type': 'application/json',
+            },
+
+            params: {
+                'id': trash_dep
+            }
+        })
         .then(response => {
             return response;
         })
@@ -228,11 +241,17 @@ export default{
     },
 
     trash_topico: (trash_top) => {
-        return http.delete('trash_topico', {params: {'id': trash_top}}, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
+        return http.delete('trash_topico', 
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                'Content-Type': 'application/json',
+            },
+
+            params: {
+                'id': trash_top
+            }
+        })
         .then(response => {
             return response;
         })
@@ -245,6 +264,7 @@ export default{
     },
 
 // Methods Get
+
     buscar_users: () => {
         return http.get('buscar_users', 
         {headers: {

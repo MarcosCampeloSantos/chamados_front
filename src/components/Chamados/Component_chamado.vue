@@ -19,7 +19,7 @@
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Anexo</label>
-                <input class="form-control" type="file">
+                <input class="form-control" @change="SelectedFile" type="file">
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Criar</button>
@@ -31,6 +31,7 @@
 <script>
 
     import getPost from '../../services/Axios/getpost'
+    import {mapGetters} from 'vuex'
 
     export default {
         data(){
@@ -40,7 +41,10 @@
                     top: '',
                     titulo: '',
                     conteudo: '',
-                    anexo: '',
+                    anexo: null,
+                    user_id: '',
+                    estado_id: '',
+                    departamento_id: '',
                 }
             }
         },
@@ -53,7 +57,16 @@
             this.buscarTop()
         },
 
+        computed:{
+            ...mapGetters(['GetDados'])
+        },
+
         methods:{
+            SelectedFile(event){
+                this.chamado.anexo = event.target.files[0]
+                console.log(this.chamado.anexo)
+            },
+
             buscarTop(){
                 getPost.buscar_top()
                 .then(resposta => {
@@ -62,6 +75,10 @@
             },
 
             CriarChamado(){
+                this.chamado.user_id = this.GetDados.user.id
+                this.chamado.estado_id = 1
+                this.chamado.departamento_id = this.GetDados.user.departamento
+
                 getPost.criar_chamado(this.chamado)
                 .then(resposta =>{
                     if(resposta.errors){

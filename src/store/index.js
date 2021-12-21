@@ -15,7 +15,7 @@ export default createStore({
   },
   getters: {
     GetDados(state){
-      return state
+      return state.dados
     },
 
     GetName(state){

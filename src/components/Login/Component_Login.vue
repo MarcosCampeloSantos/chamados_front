@@ -43,9 +43,14 @@
             AuthLogin(){
                 getPost.Login(this.Login)
                 .then(resposta =>{
-                    if(resposta.errors){
-                        var erro = resposta.errors
-                        this.erros = []
+                    var erro = [];
+
+                    if(resposta.erro){
+                        this.erros = resposta
+
+                        this.erroalert = true
+                    }else if(resposta.errors){
+                        erro = resposta.errors
                         if(erro.password){
                             erro.password.forEach(element => {
                                 this.erros.push(element)
@@ -57,6 +62,13 @@
                                 this.erros.push(element)
                             });
                         }
+                        
+                        if(erro.erro){
+                            erro.erro.forEach(element => {
+                                this.erros.push(element)
+                            })
+                        }
+                        
                         this.erroalert = true
                     }else{
                         this.erroalert = false

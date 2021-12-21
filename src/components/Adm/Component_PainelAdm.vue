@@ -448,8 +448,14 @@
             CriarDep(){
                 getPost.criar_dep(this.dep)
                 .then(resposta =>{
+                    var erro;
+
                     if(resposta.errors){
-                        this.erros = resposta.errors
+                        erro = resposta.errors
+                        
+                        erro.cria_dep_email.forEach(element => {
+                            this.erros.push(element)
+                        });
                         this.erroalert = true
                     }else{
                         this.erroalert = false
@@ -496,8 +502,15 @@
             CriarTop(){
                 getPost.criar_top(this.top)
                 .then(resposta =>{
+                    var erro
+
                     if(resposta.errors){
-                        this.erros = resposta.errors
+                        erro = resposta.errors
+
+                        erro.cria_top.forEach(element => {
+                            this.erros.push(element)
+                        });
+
                         this.erroalert = true
                     }else{
                         this.erroalert = false
