@@ -19,7 +19,7 @@
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Anexo</label>
-                <input class="form-control" @change="SelectedFile" type="file">
+                <input class="form-control" @change="SelectedFile" type="file" multiple>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Criar</button>
@@ -41,11 +41,12 @@
                     top: '',
                     titulo: '',
                     conteudo: '',
-                    anexo: null,
                     user_id: '',
                     estado_id: '',
                     departamento_id: '',
-                }
+                },
+                file: null,
+                anexo: null,
             }
         },
 
@@ -63,8 +64,14 @@
 
         methods:{
             SelectedFile(event){
-                this.chamado.anexo = event.target.files[0]
-                console.log(this.chamado.anexo)
+                
+                this.file = []
+
+                for (let index = 0; index < event.target.files.length; index++) {
+                    this.file.push(event.target.files[index])
+                }
+
+                console.log(this.file)
             },
 
             buscarTop(){
@@ -74,21 +81,53 @@
                 })
             },
 
+            CriarChamadoAll(dados){
+                getPost.criar_chamado(dados)
+                    .then(resposta =>{
+                        if(resposta.errors){
+                            this.erros = resposta.errors
+                            this.erroalert = true
+                        }else{
+                            this.erroalert = false
+                            // document.location.reload(true)
+                        }
+                    })
+            },
+
+            CriarChamadoAnexo(anexo){
+                getPost.criar_chamado_anexos(anexo)
+                    .then(resposta =>{
+                        if(resposta.errors){
+                            this.erros = resposta.errors
+                            this.erroalert = true
+                        }else{
+                            this.erroalert = false
+                            // document.location.reload(true)
+                        }
+                    })
+            },
+
             CriarChamado(){
                 this.chamado.user_id = this.GetDados.user.id
                 this.chamado.estado_id = 1
                 this.chamado.departamento_id = this.GetDados.user.departamento
 
-                getPost.criar_chamado(this.chamado)
-                .then(resposta =>{
-                    if(resposta.errors){
-                        this.erros = resposta.errors
-                        this.erroalert = true
-                    }else{
-                        this.erroalert = false
-                        // document.location.reload(true)
+                if(this.file != null){
+                    this.CriarChamadoAll(this.chamado)
+
+                    for (let index = 0; index < this.file.length; index++) {
+                        
+                        this.anexo = new FormData()
+                        this.anexo.append('Imagem', this.file[index])
+                        this.anexo.append('Name', this.file[index].name)
+                        this.anexo.append('idUser', this.GetDados.user.id)
+
+                        this.CriarChamadoAnexo(this.anexo)
                     }
-                })
+                }else{
+                    this.CriarChamadoAll(this.chamado)
+                }
+                
             }
         }
     }

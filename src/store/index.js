@@ -28,6 +28,22 @@ export default createStore({
       }else{
         return false
       }
-    }
+    },
+
+    isOp(state){
+      if(state.dados.user.nivel == '4'){
+        return true
+      }else{
+        return false
+      }
+    },
+
+    isUser(state){
+      if(state.dados.user.nivel == '2'){
+        return true
+      }else{
+        return false
+      }
+    },
   }
 })

@@ -471,7 +471,6 @@
                     if(resposta.errors){
                         var erro = resposta.errors
                         this.erros = []
-                        // this.erros = resposta.errors
                         if(erro.rel_dep){
                             erro.rel_dep.forEach(element => {
                                 this.erros.push(element)

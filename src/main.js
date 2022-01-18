@@ -5,6 +5,7 @@ import store from './store'
 import '../node_modules/bootstrap/dist/js/bootstrap.js'
 
 
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'

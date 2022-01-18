@@ -3,321 +3,374 @@ import Cookies from "js-cookie"
 
 export default{
 
-    Login: (login) => {
-        return http.post('login', login, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    Login: async (login) => {
+        try {
+            const response = await http.post('login', login,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response.data;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-        })
+        }
     },
 
-    Logout: (logout) => {
-        return http.post('logout', logout, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    Logout: async (logout) => {
+        try {
+            const response = await http.post('logout', logout,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response.data;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-        })
+        }
     },
 
-    Verificacao: (verificacao) => {
-        return http.post('verificacao', verificacao, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    Verificacao: async (verificacao) => {
+        try {
+            const response = await http.post('verificacao', verificacao,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response.data;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-        })
+        }
     },
 
 // Methods Post
-    criar_user: (user) => {
-        return http.post('criar_user', user, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    criar_user: async (user) => {
+        try {
+            const response = await http.post('criar_user', user,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response.data;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-        })
+        }
     },
 
-    criar_dep:(dep) => {
-        return http.post('criar_dep', dep, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    criar_dep: async (dep) => {
+        try {
+            const response = await http.post('criar_dep', dep,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-            
-        })
+        }
     },
 
-    criar_top:(top) => {
-        return http.post('criar_top', top, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    criar_top: async (top) => {
+        try {
+            const response = await http.post('criar_top', top,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-            
-        })
+        }
     },
 
-    criar_rel:(rel) => {
-        return http.post('criar_rel', rel, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    criar_rel: async (rel) => {
+        try {
+            const response = await http.post('criar_rel', rel,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-            
-        })
+        }
     },
 
-    editar_rel:(edit_rel) => {
-        return http.post('editar_rel', edit_rel, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    editar_rel: async (edit_rel) => {
+        try {
+            const response = await http.post('editar_rel', edit_rel,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-            
-        })
+        }
     },
 
-    adc_atribuido:(adc_atrib) => {
-        return http.post('adc_atribuido', adc_atrib, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    adc_atribuido: async (adc_atrib) => {
+        try {
+            const response = await http.post('adc_atribuido', adc_atrib,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-            
-        })
+        }
     },
 
-    criar_chamado:(criar_chamado) => {
-        return http.post('criar_chamado', criar_chamado, 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    criar_chamado:async (criar_chamado) => {
+        try {
+            const response = await http.post('chamado', criar_chamado,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-            
-        })
+        }
+    },
+
+    criar_chamado_anexos: async (criar_chamado) => {
+        try {
+            const response = await http.post('chamado', criar_chamado,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'multipart/form-data',
+                    }
+                });
+            return response;
+        } catch (erro) {
+            if (erro.response) {
+                return erro.response.data;
+            }
+        }
     },
 
 
 // Methods Delete
-    trash_atribuido:(trash_rel_id, trash_id_user) => {
-        return http.delete('trash_atribuido',
-        {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('_app_token')}`,
-                'Content-Type': 'application/json',
-            },
-            params:{
-                'id_rel': trash_rel_id,
-                'id_user': trash_id_user
-            }
-        })
-        .then(response => {
+    trash_atribuido: async (trash_rel_id, trash_id_user) => {
+        try {
+            const response = await http.delete('trash_atribuido',
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    },
+                    params: {
+                        'id_rel': trash_rel_id,
+                        'id_user': trash_id_user
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-            
-        })
+        }
     },
 
-    trash_relacionamento:(trash_rel) => {
-        return http.delete('trash_relacionamento', 
-        {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('_app_token')}`,
-                'Content-Type': 'application/json',
-            },
+    trash_relacionamento: async (trash_rel) => {
+        try {
+            const response = await http.delete('trash_relacionamento',
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    },
 
-            params: {
-                'id': trash_rel
-            }
-        })
-        .then(response => {
+                    params: {
+                        'id': trash_rel
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-            
-        })
+        }
     },
 
-    trash_departamento:(trash_dep) => {
-        return http.delete('trash_departamento', 
-        {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('_app_token')}`,
-                'Content-Type': 'application/json',
-            },
+    trash_departamento: async (trash_dep) => {
+        try {
+            const response = await http.delete('trash_departamento',
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    },
 
-            params: {
-                'id': trash_dep
-            }
-        })
-        .then(response => {
+                    params: {
+                        'id': trash_dep
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-        })
+        }
     },
 
-    trash_topico: (trash_top) => {
-        return http.delete('trash_topico', 
-        {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('_app_token')}`,
-                'Content-Type': 'application/json',
-            },
+    trash_topico: async (trash_top) => {
+        try {
+            const response = await http.delete('trash_topico',
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    },
 
-            params: {
-                'id': trash_top
-            }
-        })
-        .then(response => {
+                    params: {
+                        'id': trash_top
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
-            if(erro.response){
+        } catch (erro) {
+            if (erro.response) {
                 return erro.response.data;
             }
-            
-        })
+        }
     },
 
 // Methods Get
 
-    buscar_users: () => {
-        return http.get('buscar_users', 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    buscar_users: async () => {
+        try {
+            const response = await http.get('buscar_users',
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
+        } catch (erro) {
             return erro;
-        })
+        }
     },
 
-    buscar_dep: () => {
-        return http.get('buscar_dep', 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    buscar_dep: async () => {
+        try {
+            const response = await http.get('buscar_dep',
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
+        } catch (erro) {
             return erro;
-        })
+        }
     },
 
-    buscar_top: () => {
-        return http.get('buscar_top', 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    buscar_top: async () => {
+        try {
+            const response = await http.get('buscar_top',
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    },
+                    
+                });
             return response;
-        })
-        .catch(erro => {
+        } catch (erro) {
             return erro;
-        })
+        }
     },
 
-    buscar_rel: () => {
-        return http.get('buscar_rel', 
-        {headers: {
-            Authorization: `Bearer ${Cookies.get('_app_token')}`,
-            'Content-Type': 'application/json',
-        }})
-        .then(response => {
+    buscar_rel: async () => {
+        try {
+            const response = await http.get('buscar_rel',
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
             return response;
-        })
-        .catch(erro => {
+        } catch (erro) {
             return erro;
-        })
+        }
+    },
+
+    buscar_chamados: async (adm) => {
+        try {
+            const response = await http.get('chamado',
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    },
+
+                    params: {
+                        'Adm': adm
+                    }
+                });
+            return response;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
+    buscar_interacoes: async (id) => {
+        try {
+            const response = await http.get('interacoes/' + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            return response;
+        } catch (erro) {
+            return erro;
+        }
     },
 }
