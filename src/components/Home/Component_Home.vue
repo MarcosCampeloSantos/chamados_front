@@ -71,7 +71,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center" v-for="(cham, id) in chamados" :key="id">
+                        <tr class="text-center" v-for="(cham, id) in chamados.chamadosall" :key="id">
                             <th>{{cham.id}}</th>
                                 <td v-if="cham.estado_id == 1"><span class="badge bg-success">Aberto</span></td>
                                 <td v-if="cham.estado_id == 2"><span class="badge bg-danger">Fechado</span></td>
@@ -86,7 +86,19 @@
                             </td>
                             <td >{{cham.name}}</td>
                             <td>
-                                {{cham.title}}<i class="fas fa-paperclip"></i>
+                                <div class="row justify-content-center">
+                                    <div>
+                                        {{cham.title}} 
+                                    </div>
+
+                                    <div class="col-1" v-for="(anexo, id) in chamados.anexos" :key="id">
+                                        <div  v-if="anexo.chamado_id == cham.id">
+                                           <fa :icon="['fa','paperclip']"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
                             </td>
                             <td>
                                 {{cham.topicos}}
@@ -142,7 +154,7 @@
         </div>
         
         
-        <div v-for="(cham, id) in chamados" :key="id" class="modal fade" :id="'exampleModal' + cham.id" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div v-for="(cham, id) in chamados.chamadosall" :key="id" class="modal fade" :id="'exampleModal' + cham.id" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -224,7 +236,10 @@
         data(){
             return{
                 erroalert: false,
-                chamados: [],
+                chamados: {
+                    chamadosall:[],
+                    anexos:[]
+                },
                 chat: {
                     interacoes:[],
                     anexos: []
@@ -261,8 +276,10 @@
                             this.erroalert = true
                         }else{
                             this.erroalert = false
-                            this.chamados = resposta.data
+                            this.chamados.chamadosall = resposta.data.chamados
+                            this.chamados.anexos = resposta.data.anexos
                             this.cont_allchamados = resposta.data.length
+                            console.log(resposta.data)
                         }
                     })
             },
