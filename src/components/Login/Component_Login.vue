@@ -74,6 +74,7 @@
                         this.erroalert = false
                         Cookie.set('_app_token', resposta.auth_token)
                         localStorage.setItem("auth",JSON.stringify(resposta))
+                        localStorage.setItem("user",JSON.stringify(resposta.user))
                         this.$store.commit('increment', JSON.parse(localStorage.getItem('auth') || "{}"))
                         this.$router.push({name: 'Home'})
                     }

@@ -54,6 +54,23 @@ export default{
         }
     },
 
+    modo_operador: async (id) => {
+        try {
+            const response = await http.post('modo_operador', id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            return response.data;
+        } catch (erro) {
+            if (erro.response) {
+                return erro.response.data;
+            }
+        }
+    },
+
 // Methods Post
     criar_user: async (user) => {
         try {
@@ -65,6 +82,40 @@ export default{
                     }
                 });
             return response.data;
+        } catch (erro) {
+            if (erro.response) {
+                return erro.response.data;
+            }
+        }
+    },
+
+    criar_mensagem: async (dados) => {
+        try {
+            const response = await http.post('interacoes', dados,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            return response.data;
+        } catch (erro) {
+            if (erro.response) {
+                return erro.response.data;
+            }
+        }
+    },
+
+    criar_mensagem_anexo: async (anexo) => {
+        try {
+            const response = await http.post('interacoes', anexo,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'multipart/form-data',
+                    }
+                });
+            return response;
         } catch (erro) {
             if (erro.response) {
                 return erro.response.data;
@@ -89,9 +140,9 @@ export default{
         }
     },
 
-    criar_top: async (top) => {
+    criar_top: async (dado) => {
         try {
-            const response = await http.post('criar_top', top,
+            const response = await http.post('topico', dado,
                 {
                     headers: {
                         Authorization: `Bearer ${Cookies.get('_app_token')}`,
@@ -106,9 +157,9 @@ export default{
         }
     },
 
-    criar_rel: async (rel) => {
+    criar_atribuicao: async (dados) => {
         try {
-            const response = await http.post('criar_rel', rel,
+            const response = await http.post('atribuicao', dados,
                 {
                     headers: {
                         Authorization: `Bearer ${Cookies.get('_app_token')}`,
@@ -193,17 +244,13 @@ export default{
 
 
 // Methods Delete
-    trash_atribuido: async (trash_rel_id, trash_id_user) => {
+    trash_atribuicao: async (dado) => {
         try {
-            const response = await http.delete('trash_atribuido',
+            const response = await http.delete('atribuicao/' + dado,
                 {
                     headers: {
                         Authorization: `Bearer ${Cookies.get('_app_token')}`,
                         'Content-Type': 'application/json',
-                    },
-                    params: {
-                        'id_rel': trash_rel_id,
-                        'id_user': trash_id_user
                     }
                 });
             return response;
@@ -214,60 +261,14 @@ export default{
         }
     },
 
-    trash_relacionamento: async (trash_rel) => {
+    trash_topico: async (dado) => {
         try {
-            const response = await http.delete('trash_relacionamento',
+            const response = await http.delete('topico/' + dado,
                 {
                     headers: {
                         Authorization: `Bearer ${Cookies.get('_app_token')}`,
                         'Content-Type': 'application/json',
                     },
-
-                    params: {
-                        'id': trash_rel
-                    }
-                });
-            return response;
-        } catch (erro) {
-            if (erro.response) {
-                return erro.response.data;
-            }
-        }
-    },
-
-    trash_departamento: async (trash_dep) => {
-        try {
-            const response = await http.delete('trash_departamento',
-                {
-                    headers: {
-                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
-                        'Content-Type': 'application/json',
-                    },
-
-                    params: {
-                        'id': trash_dep
-                    }
-                });
-            return response;
-        } catch (erro) {
-            if (erro.response) {
-                return erro.response.data;
-            }
-        }
-    },
-
-    trash_topico: async (trash_top) => {
-        try {
-            const response = await http.delete('trash_topico',
-                {
-                    headers: {
-                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
-                        'Content-Type': 'application/json',
-                    },
-
-                    params: {
-                        'id': trash_top
-                    }
                 });
             return response;
         } catch (erro) {
@@ -294,24 +295,9 @@ export default{
         }
     },
 
-    buscar_dep: async () => {
-        try {
-            const response = await http.get('buscar_dep',
-                {
-                    headers: {
-                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
-                        'Content-Type': 'application/json',
-                    }
-                });
-            return response;
-        } catch (erro) {
-            return erro;
-        }
-    },
-
     buscar_top: async () => {
         try {
-            const response = await http.get('buscar_top',
+            const response = await http.get('topico',
                 {
                     headers: {
                         Authorization: `Bearer ${Cookies.get('_app_token')}`,
@@ -325,22 +311,7 @@ export default{
         }
     },
 
-    buscar_rel: async () => {
-        try {
-            const response = await http.get('buscar_rel',
-                {
-                    headers: {
-                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
-                        'Content-Type': 'application/json',
-                    }
-                });
-            return response;
-        } catch (erro) {
-            return erro;
-        }
-    },
-
-    buscar_chamados: async (adm) => {
+    buscar_chamados: async (dados) => {
         try {
             const response = await http.get('chamado',
                 {
@@ -348,9 +319,13 @@ export default{
                         Authorization: `Bearer ${Cookies.get('_app_token')}`,
                         'Content-Type': 'application/json',
                     },
-
+                    
                     params: {
-                        'Adm': adm
+                        'adm': dados.adm,
+                        'relacionado': dados.relacionado,
+                        'fechado': dados.fechado,
+                        'todos': dados.todos,
+                        'user_id': dados.user
                     }
                 });
             return response;
@@ -362,6 +337,36 @@ export default{
     buscar_interacoes: async (id) => {
         try {
             const response = await http.get('interacoes/' + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            return response;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
+    buscar_estado: async (id) => {
+        try {
+            const response = await http.get('estados/' + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('_app_token')}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            return response;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
+    buscar_atribuicoes : async () => {
+        try {
+            const response = await http.get('atribuicao',
                 {
                     headers: {
                         Authorization: `Bearer ${Cookies.get('_app_token')}`,

@@ -64,10 +64,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Departamento</label>
-                        <select class="form-select"  v-model="user.departamento">
-                            <option value="" selected>Selecione um Departamento</option>
-                            <option v-for="(dep, id) in listdep" :key="id" :value="dep.id">{{dep.departamentos}}</option>
-                        </select>
+                        <input type="text" class="form-control" v-model="user.departamento" placeholder="Digite o Departamento">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">E-mail</label>
@@ -144,12 +141,6 @@ export default {
         .then(resposta => {
             this.listuser = resposta.data
         })
-
-        getPost.buscar_dep()
-        .then(resposta => {
-            this.listdep = resposta.data
-        })
-                
 
     },
 }

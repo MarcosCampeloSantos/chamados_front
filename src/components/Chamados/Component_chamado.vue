@@ -4,8 +4,8 @@
         <form @submit.prevent="CriarChamado">
             <div class="mb-3">
                 <label class="form-label">Topicos de Ajuda</label>
-                <select class="form-select" v-model="chamado.top">
-                    <option value="">Selecione um Topico</option>
+                <select class="form-select" v-model="chamado.topico">
+                    <option value="" hidden selected>Selecione um Topico</option>
                     <option v-for="(topicos, id) in listtop" :key="id" :value="topicos.id">{{topicos.topicos}}</option>
                 </select>
             </div>
@@ -38,12 +38,12 @@
             return{
                 listtop: [],
                 chamado:{
-                    top: '',
+                    topico: '',
                     titulo: '',
                     conteudo: '',
                     user_id: '',
-                    estado_id: '',
-                    departamento_id: '',
+                    chamado_estado: '',
+                    departamento: '',
                 },
                 file: null,
                 anexo: null,
@@ -109,8 +109,8 @@
 
             CriarChamado(){
                 this.chamado.user_id = this.GetDados.user.id
-                this.chamado.estado_id = 1
-                this.chamado.departamento_id = this.GetDados.user.departamento
+                this.chamado.chamado_estado = 'ABERTO'
+                this.chamado.departamento = this.GetDados.user.departamento
 
                 if(this.file != null){
                     this.CriarChamadoAll(this.chamado)

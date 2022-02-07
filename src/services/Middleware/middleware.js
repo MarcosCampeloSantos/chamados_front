@@ -7,7 +7,7 @@ export default{
         if(Cookies.get('_app_token')){
             getPost.Verificacao(localStorage.getItem('auth'))
             .then(resposta => {
-                if(resposta.erro){
+                if(resposta.erro || resposta.exception == 'Error'){
                     next('/')
                 }else{
                     // console.log("chegou aqui")
@@ -23,7 +23,8 @@ export default{
         if(Cookies.get('_app_token')){
             getPost.Verificacao(localStorage.getItem('auth'))
             .then(resposta => {
-                if(resposta.erro){
+                console.log(resposta)
+                if(resposta.erro || resposta.exception == 'Error'){
                     next('/')
                 }else{
                     var dados = JSON.parse(localStorage.getItem('auth'));

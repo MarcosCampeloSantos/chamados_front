@@ -16,7 +16,7 @@ export default[
         path: '/Criar_User',
         name: 'CriarUser',
         component: () => import('../views/Usuario/CriarUser.vue'),
-        beforeEnter: Guard.auth
+        beforeEnter: Guard.authAdm
     },
     {
         path: '/Painel_Adm',
@@ -28,7 +28,7 @@ export default[
         path: '/Chamado',
         name: 'Chamado',
         component: () => import('../views/Chamados/CriarChamado.vue'),
-        beforeEnter: Guard.authAdm
+        beforeEnter: Guard.auth
     }
 
 ]

@@ -2,11 +2,17 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    dados: JSON.parse(localStorage.getItem('auth') || "{}")
+    dados: JSON.parse(localStorage.getItem('auth') || "{}"),
+    usuario: JSON.parse(localStorage.getItem('user') || "{}"),
+
   },
   mutations: {
     increment(state, dado){
       state.dados = dado
+    },
+
+    increment_user(state, dados){
+      state.usuario = dados
     }
   },
   actions: {
@@ -19,11 +25,11 @@ export default createStore({
     },
 
     GetName(state){
-      return state.dados.user.name
+      return state.usuario.name
     },
 
     isAdm(state){
-      if(state.dados.user.nivel == '1'){
+      if(state.usuario.nivel == '1'){
         return true
       }else{
         return false
@@ -31,7 +37,7 @@ export default createStore({
     },
 
     isOp(state){
-      if(state.dados.user.nivel == '4'){
+      if(state.usuario.nivel == '4'){
         return true
       }else{
         return false
@@ -39,11 +45,19 @@ export default createStore({
     },
 
     isUser(state){
-      if(state.dados.user.nivel == '2'){
+      if(state.usuario.nivel == '2'){
         return true
       }else{
         return false
       }
     },
+
+    isOpADM(state){
+      if(state.usuario.operador == '1'){
+        return true
+      }else{
+        return false
+      }
+    }
   }
 })
